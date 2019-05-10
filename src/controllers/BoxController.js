@@ -1,22 +1,22 @@
-const Box = require('../models/Box'); // Requisitando o Box
+const Box = require('../model/Box');
 
-class BoxController {
 
-   async store(req,res){ // Lidar com Requisições assincronas
-    
+class BoxController{
 
-    const box = await Box.create({title: req.body.title}); //Por enquanto Estático
+    async store(req,res){
+        const box = await Box.create({title:req.body.title})
 
-    return res.json(box); //  Retornando um JSON e naõ em TEXT como no SEND
+        return res.json(box);
     }
-    async show(req, res){
 
+    async show(req, res){
         const box = await Box.findById(req.params.id).populate({
-            path: 'files',
-            options: {sort: {createdAt: -1}}
+            path:'files',
+            options: { sort: {createdAt: -1}}
         });
 
         return res.json(box);
-    } 
+    }
 }
-module.exports = new BoxController();// Já que é uma classe devemos retornar NEW já que eu quero acessar os métodos da classe
+
+module.exports = new BoxController();
